@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # 主应用服务
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pangmao-recon-tool
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # 数据库配置（从环境变量或 .env 文件读取）
+      - MONGODB_URI=${MONGODB_URI}
+      - DB_NAME=${DB_NAME}
+    volumes:
+      # 持久化数据（如果需要）
+      - ./data:/app/data
+    networks:
+      - recon-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('healthy')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MongoDB 数据库（可选，如果使用本地数据库）
+  mongodb:
+    image: mongo:6.0
+    container_name: pangmao-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=pangmao_recon
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - recon-network
+
+networks:
+  recon-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
