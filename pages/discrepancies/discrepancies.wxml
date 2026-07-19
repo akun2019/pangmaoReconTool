@@ -1,0 +1,74 @@
+<!-- 差异清单页面 -->
+<view class="container">
+  <!-- 筛选条件 -->
+  <view class="filter-section">
+    <picker mode="selector" range="{{typeOptions}}" range-key="label" value="{{selectedTypeIndex}}" bindchange="onTypeChange">
+      <view class="filter-item">
+        <text class="filter-label">类型：</text>
+        <text class="filter-value">{{typeOptions[selectedTypeIndex].label}}</text>
+      </view>
+    </picker>
+    
+    <picker mode="selector" range="{{statusOptions}}" range-key="label" value="{{selectedStatusIndex}}" bindchange="onStatusChange">
+      <view class="filter-item">
+        <text class="filter-label">状态：</text>
+        <text class="filter-value">{{statusOptions[selectedStatusIndex].label}}</text>
+      </view>
+    </picker>
+    
+    <button class="btn-filter" bindtap="applyFilter">筛选</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 差异列表 -->
+  <view class="discrepancy-list" wx:if="{{!loading && discrepancyList.length > 0}}">
+    <view class="discrepancy-item" wx:for="{{discrepancyList}}" wx:key="_id" bindtap="showDetail" data-id="{{item._id}}">
+      <view class="item-header">
+        <view class="header-left">
+          <text class="order-id">{{item.order_id}}</text>
+          <text class="store-name">{{item.store_name}}</text>
+        </view>
+        <view class="type-badge {{item.discrepancy_type}}">
+          {{getTypeName(item.discrepancy_type)}}
+        </view>
+      </view>
+      
+      <view class="item-content">
+        <view class="amount-info">
+          <text class="amount-label">预期金额：</text>
+          <text class="amount-value">¥{{item.expected_amount}}</text>
+        </view>
+        <view class="amount-info">
+          <text class="amount-label">实际金额：</text>
+          <text class="amount-value">¥{{item.actual_amount}}</text>
+        </view>
+        <view class="amount-info">
+          <text class="amount-label">差额：</text>
+          <text class="amount-value difference">¥{{item.difference}}</text>
+        </view>
+      </view>
+      
+      <view class="item-footer">
+        <text class="detect-time">{{formatTime(item.detected_time)}}</text>
+        <text class="status-badge {{item.status}}">{{getStatusText(item.status)}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && discrepancyList.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无差异记录</text>
+  </view>
+
+  <!-- 分页 -->
+  <view class="pagination" wx:if="{{pagination.totalPages > 1}}">
+    <button class="btn-page" disabled="{{pagination.page <= 1}}" bindtap="prevPage">上一页</button>
+    <text class="page-info">{{pagination.page}} / {{pagination.totalPages}}</text>
+    <button class="btn-page" disabled="{{pagination.page >= pagination.totalPages}}" bindtap="nextPage">下一页</button>
+  </view>
+</view>

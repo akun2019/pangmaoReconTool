@@ -1,0 +1,237 @@
+/* 差异清单页面样式 */
+
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 筛选区域 */
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  background: #ffffff;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 15rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+}
+
+.filter-label {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.filter-value {
+  font-size: 26rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.btn-filter {
+  padding: 15rpx 30rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  border: none;
+  white-space: nowrap;
+}
+
+/* 加载状态 */
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+/* 差异列表 */
+.discrepancy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.discrepancy-item {
+  background: #ffffff;
+  border-radius: 12rpx;
+  padding: 25rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 卡片头部 */
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.order-id {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.store-name {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+/* 类型徽章 */
+.type-badge {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.type-badge.MISSING_CASH_FLOW {
+  background: #ff4d4f;
+}
+
+.type-badge.MISSING_VERIFICATION {
+  background: #faad14;
+}
+
+.type-badge.AMOUNT_MISMATCH {
+  background: #1890ff;
+}
+
+.type-badge.DUPLICATE_VERIFICATION {
+  background: #52c41a;
+}
+
+/* 卡片内容 */
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 15rpx;
+}
+
+.amount-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amount-label {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.amount-value {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.amount-value.difference {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+/* 卡片底部 */
+.item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15rpx;
+  border-top: 2rpx solid #f0f0f0;
+}
+
+.detect-time {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.status-badge {
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+
+.status-badge.pending {
+  background: #fff7e6;
+  color: #faad14;
+}
+
+.status-badge.resolved {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.status-badge.ignored {
+  background: #f5f5f5;
+  color: #999999;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 150rpx 0;
+}
+
+.empty-icon {
+  font-size: 100rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+/* 分页 */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  margin-top: 20rpx;
+}
+
+.btn-page {
+  padding: 12rpx 24rpx;
+  background: #ffffff;
+  color: #667eea;
+  border: 2rpx solid #667eea;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+}
+
+.btn-page[disabled] {
+  background: #f5f5f5;
+  color: #d9d9d9;
+  border-color: #d9d9d9;
+}
+
+.page-info {
+  font-size: 26rpx;
+  color: #666666;
+}

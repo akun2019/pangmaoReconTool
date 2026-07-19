@@ -1,0 +1,104 @@
+<!-- 数据导入页面 -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <text class="title">数据导入</text>
+    <text class="subtitle">上传 Excel/CSV 文件，自动解析并导入数据</text>
+  </view>
+
+  <!-- 数据类型选择 -->
+  <view class="type-selector">
+    <view 
+      class="type-item {{dataType === 'orders' ? 'active' : ''}}" 
+      bindtap="selectDataType" 
+      data-type="orders"
+    >
+      <text class="type-icon">📦</text>
+      <text class="type-name">订单数据</text>
+    </view>
+    <view 
+      class="type-item {{dataType === 'verification' ? 'active' : ''}}" 
+      bindtap="selectDataType" 
+      data-type="verification"
+    >
+      <text class="type-icon">✓</text>
+      <text class="type-name">核销记录</text>
+    </view>
+    <view 
+      class="type-item {{dataType === 'cash_flow' ? 'active' : ''}}" 
+      bindtap="selectDataType" 
+      data-type="cash_flow"
+    >
+      <text class="type-icon">💰</text>
+      <text class="type-name">收银流水</text>
+    </view>
+  </view>
+
+  <!-- 上传区域 -->
+  <view class="upload-section">
+    <view class="upload-btn" bindtap="chooseFile">
+      <text class="upload-icon">📤</text>
+      <text class="upload-text">选择文件</text>
+    </view>
+    <text class="upload-hint">支持 .xlsx, .xls, .csv 格式</text>
+  </view>
+
+  <!-- 上传进度 -->
+  <view class="progress-section" tt:if="{{uploading}}">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <text class="progress-text">{{progressText}}</text>
+  </view>
+
+  <!-- 导入结果 -->
+  <view class="result-section" tt:if="{{importResult}}">
+    <view class="result-header">
+      <text class="result-title">导入结果</text>
+    </view>
+    
+    <view class="result-stats">
+      <view class="stat-item">
+        <text class="stat-label">总记录数</text>
+        <text class="stat-value">{{importResult.totalRecords}}</text>
+      </view>
+      <view class="stat-item success">
+        <text class="stat-label">成功</text>
+        <text class="stat-value">{{importResult.successRecords}}</text>
+      </view>
+      <view class="stat-item error">
+        <text class="stat-label">失败</text>
+        <text class="stat-value">{{importResult.failedRecords}}</text>
+      </view>
+    </view>
+
+    <!-- 错误列表 -->
+    <view class="error-list" tt:if="{{importResult.errors && importResult.errors.length > 0}}">
+      <text class="error-title">错误详情：</text>
+      <view class="error-item" tt:for="{{importResult.errors}}" tt:key="index">
+        <text class="error-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn btn-primary" bindtap="runReconciliation" disabled="{{!canReconcile}}">
+      执行对账
+    </button>
+    <button class="btn btn-secondary" bindtap="viewImportHistory">
+      查看历史
+    </button>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tips-section">
+    <text class="tips-title">💡 使用提示</text>
+    <view class="tips-content">
+      <text class="tip-item">1. 请先下载标准模板，按格式填写数据</text>
+      <text class="tip-item">2. 确保日期格式为 YYYY-MM-DD HH:mm:ss</text>
+      <text class="tip-item">3. 金额为纯数字，不包含货币符号</text>
+      <text class="tip-item">4. 导入完成后可执行对账检测差异</text>
+    </view>
+  </view>
+</view>

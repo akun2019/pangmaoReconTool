@@ -1,0 +1,98 @@
+<!-- 对账概览页面 -->
+<view class="container">
+  <!-- 日期范围选择 -->
+  <view class="date-selector">
+    <picker mode="date" value="{{startDate}}" bindchange="onStartDateChange">
+      <view class="date-picker">{{startDate}}</view>
+    </picker>
+    <text class="date-separator">至</text>
+    <picker mode="date" value="{{endDate}}" bindchange="onEndDateChange">
+      <view class="date-picker">{{endDate}}</view>
+    </picker>
+    <button class="btn-query" bindtap="querySummary">查询</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 数据展示 -->
+  <view class="content" wx:if="{{!loading && summaryData}}">
+    <!-- 总体统计卡片 -->
+    <view class="summary-card">
+      <view class="card-header">
+        <text class="card-title">总体统计</text>
+      </view>
+      <view class="summary-stats">
+        <view class="stat-box">
+          <text class="stat-number">{{summaryData.summary.totalOrders}}</text>
+          <text class="stat-label">订单总数</text>
+        </view>
+        <view class="stat-box warning">
+          <text class="stat-number">{{summaryData.summary.totalDiscrepancies}}</text>
+          <text class="stat-label">差异总数</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 差异类型分布 -->
+    <view class="breakdown-card">
+      <view class="card-header">
+        <text class="card-title">差异类型分布</text>
+      </view>
+      <view class="breakdown-list">
+        <view class="breakdown-item" wx:for="{{discrepancyTypes}}" wx:key="type">
+          <view class="item-header">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-count">{{item.count}} 条</text>
+          </view>
+          <view class="item-amount">
+            涉及金额：¥{{item.amount}}
+          </view>
+          <view class="progress-bar">
+            <view 
+              class="progress-fill" 
+              style="width: {{item.percentage}}%; background: {{item.color}}"
+            ></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 门店排行 -->
+    <view class="store-card">
+      <view class="card-header">
+        <text class="card-title">门店差异排行</text>
+      </view>
+      <view class="store-list">
+        <view class="store-item" wx:for="{{summaryData.storeBreakdown}}" wx:key="storeId">
+          <view class="store-info">
+            <text class="store-rank">#{{index + 1}}</text>
+            <text class="store-name">{{item.storeName}}</text>
+          </view>
+          <view class="store-stats">
+            <text class="store-count">{{item.discrepancyCount}} 条</text>
+            <text class="store-amount">¥{{item.totalAmount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="btn btn-primary" bindtap="viewDiscrepancies">
+        查看差异清单
+      </button>
+      <button class="btn btn-secondary" bindtap="exportReport">
+        导出报表
+      </button>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && !summaryData}}">
+    <text class="empty-icon">📊</text>
+    <text class="empty-text">暂无数据，请选择日期范围查询</text>
+  </view>
+</view>

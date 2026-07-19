@@ -1,0 +1,29 @@
+# 依赖目录
+node_modules/
+
+# 环境变量文件（包含敏感信息）
+.env
+scripts/.env
+
+# 编译输出
+dist/
+build/
+*.js.map
+
+# 临时文件
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 测试数据（可选，根据实际情况决定）
+# output/*.xlsx
+# output/*.csv
+
+# 抖音云相关
+.cloudbase/
