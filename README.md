@@ -134,7 +134,9 @@ npm run generate
 
 ---
 
-### 方式二：Docker 部署
+### 方式二：Docker 部署（仅用于本地测试）
+
+**注意**：本项目主要部署在**抖音云平台**（Serverless），Docker 仅用于本地测试或其他云平台。
 
 #### 1. 构建镜像
 
@@ -153,7 +155,7 @@ docker run -d \
   pangmao-recon-tool
 ```
 
-#### 3. 使用 Docker Compose（推荐）
+#### 3. 使用 Docker Compose（可选）
 
 ```bash
 # 启动所有服务
@@ -165,6 +167,8 @@ docker-compose logs -f app
 # 停止服务
 docker-compose down
 ```
+
+**详细说明**: 查看 [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ---
 
